@@ -74,9 +74,9 @@ mod tests {
     const kjv_sha256: &str = "fa72f9a3666bd0259454a89d7debe42a49fc0c168c60c02073e2b00fc8ce52f4";
     const kjv_sha512: &str = "755c4e1631d2bdc61f23fdaa71ebdab8c1da2050c6de62d038a81a39e99844c25fa26c03625f79c4c9fe4e05a3b1aa2b28c5829780db902a8f182840c20c82d9";
     const seven_key: &str = "test_data/seven.mp4";
-    const seven_md5: &str = "e4a5ec9444a0b7cd6d9c16eb228bd804";
-    const seven_sha256: &str = "fa72f9a3666bd0259454a89d7debe42a49fc0c168c60c02073e2b00fc8ce52f4";
-    const seven_sha512: &str = "755c4e1631d2bdc61f23fdaa71ebdab8c1da2050c6de62d038a81a39e99844c25fa26c03625f79c4c9fe4e05a3b1aa2b28c5829780db902a8f182840c20c82d9";
+    const seven_md5: &str = "282326fafe14d6cd851ca9ad7612c0ab";
+    const seven_sha256: &str = "ed3453f94aec2ce09a9b1433e064c684f057b45b451de749d244c31f35610706";
+    const seven_sha512: &str = "207b5f5327df73aa4d86f97f34ae8ed14508970cb22306ccf099bc45baf9effcf12b2f39ce5cc6bc24c0adba566c6e4d7791b7e5ba2ed38ad89e4b843761bd4f";
 
     #[tokio::test]
     async fn test_list_buckets() -> Result<(), Error> {
@@ -114,7 +114,8 @@ mod tests {
 
     #[tokio::test]
     async fn test_download_seven() -> Result<(), Error> {
-        // seconds on a 400-500 Mbps connection typically
+        // ~50 MiB/s -> 419.4304 megabit / second
+        // 40 seconds on a 400-500 Mbps connection typically
         let client = create_default_client().await;
         let now = Epoch::now().unwrap();
         simple_download_file(&client, ctesias_bucket, seven_key, std::path::Path::new("./tmp/seven.mp4")).await?;
